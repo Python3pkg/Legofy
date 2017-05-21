@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 
 from PIL import Image, ImageSequence
 import sys
@@ -113,11 +113,11 @@ def legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither)
     # Create container for converted images
     frames_converted = []
 
-    print("Number of frames to convert: " + str(len(frames)))
+    print(("Number of frames to convert: " + str(len(frames))))
 
     # Iterate through single frames
     for i, frame in enumerate(frames, 1):
-        print("Converting frame number " + str(i))
+        print(("Converting frame number " + str(i)))
 
         new_size = get_new_size(frame, brick_image, size)
         frame.thumbnail(new_size, Image.ANTIALIAS)
@@ -145,33 +145,33 @@ def main(image_path, output_path=None, size=None,
     '''Legofy image or gif with brick_path mask'''
     image_path = os.path.realpath(image_path)
     if not os.path.isfile(image_path):
-        print('Image file "{0}" was not found.'.format(image_path))
+        print(('Image file "{0}" was not found.'.format(image_path)))
         sys.exit(1)
 
     brick_path = os.path.join(os.path.dirname(__file__), "assets",
                               "bricks", "1x1.png")
 
     if not os.path.isfile(brick_path):
-        print('Brick asset "{0}" was not found.'.format(brick_path))
+        print(('Brick asset "{0}" was not found.'.format(brick_path)))
         sys.exit(1)
 
     base_image = Image.open(image_path)
     brick_image = Image.open(brick_path)
 
     if palette_mode:
-        print ("LEGO Palette {0} selected...".format(palette_mode.title()))
+        print(("LEGO Palette {0} selected...".format(palette_mode.title())))
     elif dither:
         palette_mode = 'all'
 
     if image_path.lower().endswith(".gif") and base_image.is_animated:
         if output_path is None:
             output_path = get_new_filename(image_path)
-        print("Animated gif detected, will now legofy to {0}".format(output_path))
+        print(("Animated gif detected, will now legofy to {0}".format(output_path)))
         legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither)
     else:
         if output_path is None:
             output_path = get_new_filename(image_path, '.png')
-        print("Static image detected, will now legofy to {0}".format(output_path))
+        print(("Static image detected, will now legofy to {0}".format(output_path)))
         legofy_image(base_image, brick_image, output_path, size, palette_mode, dither)
 
     base_image.close()

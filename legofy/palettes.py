@@ -15,7 +15,7 @@ Color mapping source;
 
 See README for project details.
 """
-from __future__ import division
+
 
 
 LEGOS = {
@@ -105,7 +105,7 @@ def _flatten_palettes(palettes):
     flattened = {}
     palettes = _merge_palettes(palettes)
     for palette in palettes:
-        flat = [i for sub in palettes[palette].values() for i in sub]
+        flat = [i for sub in list(palettes[palette].values()) for i in sub]
         flattened.update({palette: flat})
     return flattened
 
